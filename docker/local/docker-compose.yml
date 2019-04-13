@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  employee-event-postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5419:5432
+    environment:
+      - POSTGRES_DB=employee_event
+      - POSRGRES_USER=postgres
+      - POSTGRES_PASSWORD=employee_event

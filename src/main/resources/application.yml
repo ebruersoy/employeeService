@@ -1,0 +1,45 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  application.name: employee-event
+  pid.file: ${java.io.tmpdir}/employee-event-api.pid
+  datasource:
+    driverClassName: org.postgresql.Driver
+    hikari:
+      pool-name: employee-event-dbconnectionpool
+  jpa:
+    show-sql: false
+    database: postgresql
+    hibernate:
+      ddl-auto: validate
+  kafka:
+    bootstrap-servers: localhost:9092
+---
+
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:postgresql://localhost:5419/employee_event
+    username: postgres
+    password: employee_event
+server:
+  port: 8019
+---
+
+spring:
+  profiles: test
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:test_db
+  flyway:
+    enabled: false
+  jpa:
+    show-sql: false
+    database: h2
+    hibernate:
+      ddl-auto: create
+logging:
+  level:
+    root: error
