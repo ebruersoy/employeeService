@@ -3,19 +3,29 @@ server:
   servlet:
     context-path: /
 spring:
-  application.name: employee-event
-  pid.file: ${java.io.tmpdir}/employee-event-api.pid
+  application.name: employee-service
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  pid.file: ${java.io.tmpdir}/employee-service-api.pid
   datasource:
     driverClassName: org.postgresql.Driver
     hikari:
-      pool-name: employee-event-dbconnectionpool
+      pool-name: employee-service-dbconnectionpool
   jpa:
     show-sql: false
     database: postgresql
     hibernate:
       ddl-auto: validate
   kafka:
+    consumer:
+      group-id: myway
+      auto-offset-reset: earliest
     bootstrap-servers: localhost:9092
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.trusted.packages: com.myway.dto
 ---
 
 spring:
@@ -26,6 +36,11 @@ spring:
     password: employee_event
 server:
   port: 8019
+springfox:
+  documentation:
+    swagger:
+      v2:
+        host: localhost:8019
 ---
 
 spring:

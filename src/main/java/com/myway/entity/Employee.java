@@ -1,6 +1,9 @@
 package com.myway.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.myway.util.LocalDateDeserializer;
+import com.myway.util.LocalDateSerializer;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
@@ -12,7 +15,6 @@ import java.util.UUID;
  */
 
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "employee")
 public class Employee {
 
@@ -27,9 +29,11 @@ public class Employee {
     private String fullName;
 
     @Column(name = "BIRTHDAY")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthday;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
 
@@ -71,5 +75,16 @@ public class Employee {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "uuid=" + uuid +
+                ", email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", birthday=" + birthday +
+                ", department=" + department.toString() +
+                '}';
     }
 }

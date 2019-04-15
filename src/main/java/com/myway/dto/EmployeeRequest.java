@@ -3,7 +3,6 @@ package com.myway.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 /**
  * @author Ebru Göksal
@@ -11,10 +10,19 @@ import java.time.LocalDate;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EmployeeRequest implements Serializable {
 
+    private String uuid;
     private String email;
     private String fullName;
-    private LocalDate birthday;
+    private String birthday;
     private Long departmentId;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getEmail() {
         return email;
@@ -32,11 +40,11 @@ public class EmployeeRequest implements Serializable {
         this.fullName = fullName;
     }
 
-    public LocalDate getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

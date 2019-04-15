@@ -1,7 +1,7 @@
 version: '3.1'
 
 services:
-  employee-event-postgres:
+  employee-service-postgres:
     image: postgres
     restart: always
     ports:
