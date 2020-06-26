@@ -5,6 +5,7 @@ This service provides add, update, delete employees and find an employee by its 
 
 For building and running the application you need:
 
+- To start this service from local, firstly kafka service must be run which is https://github.com/ebruersoy/eventService
 - [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Maven 3](https://maven.apache.org)
 
